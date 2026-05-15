@@ -7,7 +7,11 @@ const NAV_H = 64;
 const SIDEBAR_W = 240;
 
 function useIsDesktop() {
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(() =>
+    typeof window !== "undefined"
+      ? window.matchMedia("(min-width: 768px)").matches
+      : true,
+  );
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 768px)");
     const update = () => setIsDesktop(mq.matches);
