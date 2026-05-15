@@ -54,7 +54,7 @@ export const NavbarMarketing: React.FC = () => (
     logoSize={32}
     center={
       <nav
-        className="hidden md:flex items-center gap-8 text-sm"
+        className="hidden md:flex items-center gap-8 text-sm ml-8"
         style={{ color: "var(--text-secondary)" }}
       >
         {marketingLinks.map((l) => (
