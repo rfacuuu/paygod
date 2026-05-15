@@ -17,26 +17,38 @@ export const Navbar: React.FC<NavbarProps> = ({
   center,
   right,
   left,
-  logoSize = 28,
+  logoSize = 26,
   className,
   ...props
 }) => {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 h-16 bg-black z-50 flex items-center px-8",
+        "fixed top-0 left-0 right-0 h-16 bg-black z-50 flex items-center",
         className,
       )}
-      style={{ borderBottom: "1px solid var(--border)" }}
+      style={{ borderBottom: "1px solid var(--border)", paddingLeft: 32, paddingRight: 32 }}
       {...props}
     >
-      <div className="flex items-center min-w-0 gap-10" style={{ marginRight: 48 }}>
+      {/* Left cluster: optional menu button + logo */}
+      <div className="flex items-center min-w-0 gap-4">
         {left}
         <Link to="/" aria-label="Paygod home" className="shrink-0 inline-flex items-center">
           <PaygodLogo size={logoSize} />
         </Link>
       </div>
-      <div className="flex-1 flex items-center min-w-0">{center}</div>
+
+      {/* Center: absolutely centered so nav items are page-centered */}
+      {center ? (
+        <div className="hidden md:flex absolute left-1/2 top-0 h-full items-center -translate-x-1/2 pointer-events-none">
+          <div className="pointer-events-auto">{center}</div>
+        </div>
+      ) : null}
+
+      {/* Spacer to push right cluster */}
+      <div className="flex-1" />
+
+      {/* Right cluster */}
       <div className="flex items-center justify-end gap-3">{right}</div>
     </header>
   );
@@ -51,10 +63,10 @@ const marketingLinks = [
 
 export const NavbarMarketing: React.FC = () => (
   <Navbar
-    logoSize={32}
+    logoSize={26}
     center={
       <nav
-        className="hidden md:flex items-center gap-8 text-sm ml-8"
+        className="flex items-center gap-10 text-sm"
         style={{ color: "var(--text-secondary)" }}
       >
         {marketingLinks.map((l) => (
