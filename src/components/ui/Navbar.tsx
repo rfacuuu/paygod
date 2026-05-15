@@ -80,9 +80,22 @@ const NetworkBadge: React.FC = () => (
 export const NavbarApp: React.FC<NavbarAppProps> = ({
   pageTitle,
   wallet = MOCK_INSTITUTION.wallet,
+  onMenuClick,
 }) => (
   <Navbar
     style={{ paddingLeft: 24, paddingRight: 24 }}
+    left={
+      onMenuClick ? (
+        <button
+          type="button"
+          onClick={onMenuClick}
+          className="md:hidden text-white p-1 -ml-1"
+          aria-label="Open menu"
+        >
+          <Menu size={20} strokeWidth={1.5} />
+        </button>
+      ) : null
+    }
     center={
       pageTitle ? (
         <div className="flex items-center min-w-0">
@@ -105,8 +118,8 @@ export const NavbarApp: React.FC<NavbarAppProps> = ({
         <NetworkBadge />
         <button
           type="button"
-          className="flex items-center gap-1.5 hover:text-white transition-colors duration-150"
-          style={{ color: "var(--text-secondary)", fontSize: 13 }}
+          className="hidden sm:flex items-center gap-1.5 hover:text-white transition-colors duration-150"
+          style={{ color: "#888", fontSize: 13 }}
         >
           <span className="font-mono">{truncateAddress(wallet)}</span>
           <ChevronDown size={14} strokeWidth={1.5} />
