@@ -68,3 +68,32 @@ export const MOCK_STATS = {
   complianceLabel: "Excellent",
   volumeChange: "+18.7% vs last 30 days",
 };
+
+export const MOCK_AGENT_DETAIL = {
+  txId: "0x2d4f...6b8a",
+  walletAnalyzed: "0xA1B2...5678",
+  walletFull: "0xA182C3D4E5F678901234567890ABCDEF12345678",
+  riskScore: 94,
+  riskLabel: "LOW",
+  verificationCost: "0.0003",
+  currency: "DoC",
+  agentVersion: "Paygod Compliance Agent v2.1.4",
+  checks: [
+    { label: "OFAC Check",      result: "Clear", passed: true, durationMs: 87 },
+    { label: "PEP Screening",   result: "Clear", passed: true, durationMs: 63 },
+    { label: "Velocity Check",  result: "Clear", passed: true, durationMs: 94 },
+    { label: "Blacklist Check", result: "Clear", passed: true, durationMs: 71 },
+    { label: "Sanctions Check", result: "Clear", passed: true, durationMs: 58 },
+  ],
+  timeline: [
+    { event: "Request received",                time: "12:34:56.123", durationMs: 42 },
+    { event: "Wallet parsing & normalization",  time: "12:34:56.165", durationMs: 18 },
+    { event: "OFAC screening",                  time: "12:34:56.183", durationMs: 87 },
+    { event: "PEP screening",                   time: "12:34:56.270", durationMs: 63 },
+    { event: "Velocity analysis",               time: "12:34:56.333", durationMs: 94 },
+    { event: "Blacklist & sanctions",           time: "12:34:56.427", durationMs: 71 },
+    { event: "Risk scoring",                    time: "12:34:56.498", durationMs: 33 },
+    { event: "Decision: LOW",                   time: "12:34:56.531", durationMs: 31 },
+  ],
+  totalTimeMs: 549,
+};

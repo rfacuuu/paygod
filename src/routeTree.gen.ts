@@ -12,11 +12,13 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppOnboardingRouteImport } from './routes/app_.onboarding'
 import { Route as AppTransfersRouteImport } from './routes/app.transfers'
 import { Route as AppSettingsRouteImport } from './routes/app.settings'
 import { Route as AppOverviewRouteImport } from './routes/app.overview'
 import { Route as AppComplianceRouteImport } from './routes/app.compliance'
 import { Route as AppAuditLogRouteImport } from './routes/app.audit-log'
+import { Route as AppComplianceAgentTxIdRouteImport } from './routes/app.compliance.agent.$txId'
 
 const AppRoute = AppRouteImport.update({
   id: '/app',
@@ -32,6 +34,11 @@ const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AppRoute,
+} as any)
+const AppOnboardingRoute = AppOnboardingRouteImport.update({
+  id: '/app_/onboarding',
+  path: '/app/onboarding',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AppTransfersRoute = AppTransfersRouteImport.update({
   id: '/transfers',
@@ -58,36 +65,47 @@ const AppAuditLogRoute = AppAuditLogRouteImport.update({
   path: '/audit-log',
   getParentRoute: () => AppRoute,
 } as any)
+const AppComplianceAgentTxIdRoute = AppComplianceAgentTxIdRouteImport.update({
+  id: '/agent/$txId',
+  path: '/agent/$txId',
+  getParentRoute: () => AppComplianceRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/app/audit-log': typeof AppAuditLogRoute
-  '/app/compliance': typeof AppComplianceRoute
+  '/app/compliance': typeof AppComplianceRouteWithChildren
   '/app/overview': typeof AppOverviewRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/transfers': typeof AppTransfersRoute
+  '/app/onboarding': typeof AppOnboardingRoute
   '/app/': typeof AppIndexRoute
+  '/app/compliance/agent/$txId': typeof AppComplianceAgentTxIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app/audit-log': typeof AppAuditLogRoute
-  '/app/compliance': typeof AppComplianceRoute
+  '/app/compliance': typeof AppComplianceRouteWithChildren
   '/app/overview': typeof AppOverviewRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/transfers': typeof AppTransfersRoute
+  '/app/onboarding': typeof AppOnboardingRoute
   '/app': typeof AppIndexRoute
+  '/app/compliance/agent/$txId': typeof AppComplianceAgentTxIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/app/audit-log': typeof AppAuditLogRoute
-  '/app/compliance': typeof AppComplianceRoute
+  '/app/compliance': typeof AppComplianceRouteWithChildren
   '/app/overview': typeof AppOverviewRoute
   '/app/settings': typeof AppSettingsRoute
   '/app/transfers': typeof AppTransfersRoute
+  '/app_/onboarding': typeof AppOnboardingRoute
   '/app/': typeof AppIndexRoute
+  '/app/compliance/agent/$txId': typeof AppComplianceAgentTxIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -99,7 +117,9 @@ export interface FileRouteTypes {
     | '/app/overview'
     | '/app/settings'
     | '/app/transfers'
+    | '/app/onboarding'
     | '/app/'
+    | '/app/compliance/agent/$txId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -108,7 +128,9 @@ export interface FileRouteTypes {
     | '/app/overview'
     | '/app/settings'
     | '/app/transfers'
+    | '/app/onboarding'
     | '/app'
+    | '/app/compliance/agent/$txId'
   id:
     | '__root__'
     | '/'
@@ -118,12 +140,15 @@ export interface FileRouteTypes {
     | '/app/overview'
     | '/app/settings'
     | '/app/transfers'
+    | '/app_/onboarding'
     | '/app/'
+    | '/app/compliance/agent/$txId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRouteWithChildren
+  AppOnboardingRoute: typeof AppOnboardingRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -148,6 +173,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/'
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
+    }
+    '/app_/onboarding': {
+      id: '/app_/onboarding'
+      path: '/app/onboarding'
+      fullPath: '/app/onboarding'
+      preLoaderRoute: typeof AppOnboardingRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/app/transfers': {
       id: '/app/transfers'
@@ -184,12 +216,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAuditLogRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/compliance/agent/$txId': {
+      id: '/app/compliance/agent/$txId'
+      path: '/agent/$txId'
+      fullPath: '/app/compliance/agent/$txId'
+      preLoaderRoute: typeof AppComplianceAgentTxIdRouteImport
+      parentRoute: typeof AppComplianceRoute
+    }
   }
 }
 
+interface AppComplianceRouteChildren {
+  AppComplianceAgentTxIdRoute: typeof AppComplianceAgentTxIdRoute
+}
+
+const AppComplianceRouteChildren: AppComplianceRouteChildren = {
+  AppComplianceAgentTxIdRoute: AppComplianceAgentTxIdRoute,
+}
+
+const AppComplianceRouteWithChildren = AppComplianceRoute._addFileChildren(
+  AppComplianceRouteChildren,
+)
+
 interface AppRouteChildren {
   AppAuditLogRoute: typeof AppAuditLogRoute
-  AppComplianceRoute: typeof AppComplianceRoute
+  AppComplianceRoute: typeof AppComplianceRouteWithChildren
   AppOverviewRoute: typeof AppOverviewRoute
   AppSettingsRoute: typeof AppSettingsRoute
   AppTransfersRoute: typeof AppTransfersRoute
@@ -198,7 +249,7 @@ interface AppRouteChildren {
 
 const AppRouteChildren: AppRouteChildren = {
   AppAuditLogRoute: AppAuditLogRoute,
-  AppComplianceRoute: AppComplianceRoute,
+  AppComplianceRoute: AppComplianceRouteWithChildren,
   AppOverviewRoute: AppOverviewRoute,
   AppSettingsRoute: AppSettingsRoute,
   AppTransfersRoute: AppTransfersRoute,
@@ -210,6 +261,7 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
+  AppOnboardingRoute: AppOnboardingRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
