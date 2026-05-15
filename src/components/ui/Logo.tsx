@@ -1,20 +1,33 @@
 import * as React from "react";
-import mark from "@/assets/paygod-mark.png";
+import lockup from "@/assets/paygod-mark.png";
 
-export const PaygodMark: React.FC<{ size?: number; className?: string }> = ({ size = 20, className }) => (
-  <img
-    src={mark}
-    alt="Paygod"
-    style={{ height: size, width: "auto" }}
+// Inline SVG » chevron mark (icon-only)
+export const PaygodMark: React.FC<{ size?: number; className?: string; color?: string }> = ({
+  size = 20,
+  className,
+  color = "#ED3134",
+}) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 18"
+    fill="none"
     className={className}
-  />
+    aria-label="Paygod"
+  >
+    <path
+      d="M2 0 L14 0 L22 9 L14 18 L2 18 L10 9 Z"
+      fill={color}
+    />
+  </svg>
 );
 
+// Full lockup (icon + wordmark) using the brand asset.
 export const PaygodLogo: React.FC<{ size?: number; className?: string }> = ({ size = 20, className }) => (
-  <div className={"flex items-center gap-2 " + (className ?? "")}>
-    <PaygodMark size={size} />
-    <span className="text-white font-bold tracking-tight" style={{ fontWeight: 700, fontSize: size * 0.9 }}>
-      paygod
-    </span>
-  </div>
+  <img
+    src={lockup}
+    alt="Paygod"
+    style={{ height: size, width: "auto", display: "block" }}
+    className={className}
+  />
 );
