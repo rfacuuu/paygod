@@ -15,6 +15,7 @@ export interface TableProps<T> {
   onRowClick?: (row: T) => void;
   className?: string;
   emptyMessage?: string;
+  rowStyle?: (row: T) => React.CSSProperties | undefined;
 }
 
 export function Table<T extends Record<string, any>>({
@@ -23,6 +24,7 @@ export function Table<T extends Record<string, any>>({
   onRowClick,
   className,
   emptyMessage = "No data",
+  rowStyle,
 }: TableProps<T>) {
   return (
     <div className={cn("w-full", className)}>
@@ -62,7 +64,7 @@ export function Table<T extends Record<string, any>>({
                   "transition-colors duration-150 hover:bg-[var(--surface)]",
                   onRowClick && "cursor-pointer",
                 )}
-                style={{ borderBottom: "1px solid var(--border)" }}
+                style={{ borderBottom: "1px solid var(--border)", ...(rowStyle?.(row) ?? {}) }}
               >
                 {columns.map((c) => (
                   <td key={c.key} className={cn("px-4 py-3 text-white", c.className)}>
