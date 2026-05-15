@@ -15,6 +15,7 @@ export interface TableProps<T> {
   onRowClick?: (row: T) => void;
   className?: string;
   emptyMessage?: string;
+  rowStyle?: (row: T) => React.CSSProperties | undefined;
 }
 
 export function Table<T extends Record<string, any>>({
@@ -23,6 +24,7 @@ export function Table<T extends Record<string, any>>({
   onRowClick,
   className,
   emptyMessage = "No data",
+  rowStyle,
 }: TableProps<T>) {
   return (
     <div className={cn("w-full", className)}>
