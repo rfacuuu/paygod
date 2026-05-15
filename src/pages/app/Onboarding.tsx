@@ -16,13 +16,19 @@ const LockIcon = () => (
   </svg>
 );
 
-const trusted = [
+const trusted: Array<{
+  label: string;
+  icon?: React.ReactNode;
+  weight: 600 | 700;
+  tracking?: string;
+  border?: boolean;
+}> = [
   { label: "AVALANCHE", icon: <Triangle />, weight: 700, tracking: "0.05em" },
   { label: "bankaool", weight: 600, tracking: "-0.02em" },
   { label: "ARKÁNGELES", weight: 600, tracking: "0.1em" },
   { label: "x402", weight: 700, border: true },
   { label: "eERC20", icon: <LockIcon />, weight: 600, tracking: "0.05em" },
-] as const;
+];
 
 export default function Onboarding() {
   return (
