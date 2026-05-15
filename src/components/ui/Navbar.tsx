@@ -11,7 +11,7 @@ export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   left?: React.ReactNode;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ center, right, className, ...props }) => {
+export const Navbar: React.FC<NavbarProps> = ({ center, right, left, className, ...props }) => {
   return (
     <header
       className={cn(
@@ -21,7 +21,8 @@ export const Navbar: React.FC<NavbarProps> = ({ center, right, className, ...pro
       style={{ borderBottom: "1px solid var(--border)" }}
       {...props}
     >
-      <div className="flex-1 flex items-center min-w-0">
+      <div className="flex-1 flex items-center min-w-0 gap-2">
+        {left}
         <PaygodLogo size={20} />
         {center}
       </div>
