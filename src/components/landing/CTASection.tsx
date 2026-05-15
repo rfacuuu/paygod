@@ -15,7 +15,10 @@ export const CTASection: React.FC = () => (
   >
     <GridShader intensity="low" />
 
-    <div className="relative max-w-2xl mx-auto text-center flex flex-col items-center">
+    <div
+      className="relative text-center flex flex-col items-center"
+      style={{ maxWidth: 640, margin: "0 auto" }}
+    >
       <h2
         className="font-extrabold text-white"
         style={{ fontSize: "clamp(32px, 5vw, 48px)", letterSpacing: "-0.03em" }}
