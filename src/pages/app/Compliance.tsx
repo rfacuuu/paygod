@@ -78,6 +78,11 @@ export default function Compliance() {
           columns={columns}
           data={MOCK_AUDIT_LOG}
           onRowClick={() => setDrawerOpen(true)}
+          rowStyle={(r) =>
+            r.agentDecision === "flagged" || r.agentDecision === "blocked"
+              ? { backgroundColor: "rgba(237,49,52,0.03)" }
+              : undefined
+          }
         />
       </div>
 
