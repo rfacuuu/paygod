@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Menu } from "lucide-react";
 import { cn, truncateAddress } from "@/lib/utils";
 import { PaygodLogo } from "./Logo";
 import { Button } from "./Button";
@@ -8,6 +8,7 @@ import { MOCK_INSTITUTION } from "@/lib/mockAuth";
 export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   center?: React.ReactNode;
   right?: React.ReactNode;
+  left?: React.ReactNode;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ center, right, className, ...props }) => {
