@@ -1,18 +1,13 @@
 import * as React from "react";
+import mark from "@/assets/paygod-mark.png";
 
 export const PaygodMark: React.FC<{ size?: number; className?: string }> = ({ size = 20, className }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
+  <img
+    src={mark}
+    alt="Paygod"
+    style={{ height: size, width: "auto" }}
     className={className}
-    aria-hidden
-  >
-    <path d="M3 4 L13 12 L3 20 L6 20 L16 12 L6 4 Z" fill="#ED3134" />
-    <path d="M11 4 L21 12 L11 20 L14 20 L24 12 L14 4 Z" fill="#ED3134" />
-  </svg>
+  />
 );
 
 export const PaygodLogo: React.FC<{ size?: number; className?: string }> = ({ size = 20, className }) => (
