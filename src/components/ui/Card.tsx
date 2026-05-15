@@ -16,9 +16,10 @@ export const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <div
-      className={cn("bg-[var(--surface)] border rounded-none transition-colors duration-150", className)}
+      className={cn("border rounded-none transition-colors duration-150", className)}
       style={{
         padding,
+        backgroundColor: highlight ? "rgba(237,49,52,0.02)" : "var(--surface)",
         borderColor: highlight ? "var(--accent)" : "var(--border)",
         borderWidth: 1,
         borderStyle: "solid",
