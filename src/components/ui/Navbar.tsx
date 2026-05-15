@@ -125,35 +125,34 @@ export const NavbarApp: React.FC<NavbarAppProps> = ({
   onMenuClick,
 }) => (
   <Navbar
-    style={{ paddingLeft: 24, paddingRight: 24 }}
     left={
-      onMenuClick ? (
-        <button
-          type="button"
-          onClick={onMenuClick}
-          className="md:hidden text-white p-1 -ml-1"
-          aria-label="Open menu"
-        >
-          <Menu size={20} strokeWidth={1.5} />
-        </button>
-      ) : null
-    }
-    center={
-      pageTitle ? (
-        <div className="flex items-center min-w-0">
-          <span
-            className="mx-4 h-6"
-            style={{ borderLeft: "1px solid var(--border)" }}
-            aria-hidden
-          />
-          <span
-            className="text-white font-medium truncate"
-            style={{ fontSize: 14 }}
+      <>
+        {onMenuClick ? (
+          <button
+            type="button"
+            onClick={onMenuClick}
+            className="md:hidden text-white p-1 -ml-1"
+            aria-label="Open menu"
           >
-            {pageTitle}
-          </span>
-        </div>
-      ) : null
+            <Menu size={20} strokeWidth={1.5} />
+          </button>
+        ) : null}
+        {pageTitle ? (
+          <div className="hidden sm:flex items-center min-w-0">
+            <span
+              className="mx-4 h-6"
+              style={{ borderLeft: "1px solid var(--border)" }}
+              aria-hidden
+            />
+            <span
+              className="text-white font-medium truncate"
+              style={{ fontSize: 14 }}
+            >
+              {pageTitle}
+            </span>
+          </div>
+        ) : null}
+      </>
     }
     right={
       <>
