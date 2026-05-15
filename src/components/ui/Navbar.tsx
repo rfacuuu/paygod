@@ -30,9 +30,9 @@ export const Navbar: React.FC<NavbarProps> = ({
       style={{ borderBottom: "1px solid var(--border)" }}
       {...props}
     >
-      <div className="flex items-center min-w-0 gap-10 mr-8">
+      <div className="flex items-center min-w-0 gap-10" style={{ marginRight: 48 }}>
         {left}
-        <Link to="/" aria-label="Paygod home" className="shrink-0">
+        <Link to="/" aria-label="Paygod home" className="shrink-0 inline-flex items-center">
           <PaygodLogo size={logoSize} />
         </Link>
       </div>
