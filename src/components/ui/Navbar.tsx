@@ -54,6 +54,7 @@ export const NavbarMarketing: React.FC = () => (
 export interface NavbarAppProps {
   pageTitle?: string;
   wallet?: string;
+  onMenuClick?: () => void;
 }
 
 const NetworkBadge: React.FC = () => (
