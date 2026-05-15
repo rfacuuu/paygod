@@ -117,7 +117,15 @@ export default function AuditLog() {
       </div>
 
       <div className="mt-4">
-        <Table columns={columns} data={MOCK_AUDIT_LOG} />
+        <Table
+          columns={columns}
+          data={MOCK_AUDIT_LOG}
+          rowStyle={(r) =>
+            r.agentDecision === "flagged" || r.agentDecision === "blocked"
+              ? { backgroundColor: "rgba(237,49,52,0.03)" }
+              : undefined
+          }
+        />
       </div>
 
       <Pagination rangeLabel="1–10 of 1,248" currentPage={1} totalPages={25} />
