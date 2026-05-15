@@ -30,12 +30,12 @@ export const Navbar: React.FC<NavbarProps> = ({
       style={{ borderBottom: "1px solid var(--border)", paddingLeft: 32, paddingRight: 32 }}
       {...props}
     >
-      {/* Left cluster: optional menu button + logo */}
+      {/* Left cluster: logo + optional contextual content (page title or menu btn) */}
       <div className="flex items-center min-w-0 gap-4">
-        {left}
         <Link to="/" aria-label="Paygod home" className="shrink-0 inline-flex items-center">
           <PaygodLogo size={logoSize} />
         </Link>
+        {left}
       </div>
 
       {/* Center: absolutely centered so nav items are page-centered */}
