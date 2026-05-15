@@ -45,7 +45,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 const marketingLinks = [
   { label: "Product", href: "#product" },
   { label: "How it works", href: "#how-it-works" },
-  { label: "Docs", href: "#docs" },
+  { label: "Compliance", href: "#product" },
   { label: "Contact", href: "#cta" },
 ];
 
