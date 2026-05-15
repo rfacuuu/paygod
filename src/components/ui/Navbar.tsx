@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Menu } from "lucide-react";
 import { cn, truncateAddress } from "@/lib/utils";
 import { PaygodLogo } from "./Logo";
 import { Button } from "./Button";
@@ -8,9 +8,10 @@ import { MOCK_INSTITUTION } from "@/lib/mockAuth";
 export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   center?: React.ReactNode;
   right?: React.ReactNode;
+  left?: React.ReactNode;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ center, right, className, ...props }) => {
+export const Navbar: React.FC<NavbarProps> = ({ center, right, left, className, ...props }) => {
   return (
     <header
       className={cn(
@@ -20,7 +21,8 @@ export const Navbar: React.FC<NavbarProps> = ({ center, right, className, ...pro
       style={{ borderBottom: "1px solid var(--border)" }}
       {...props}
     >
-      <div className="flex-1 flex items-center min-w-0">
+      <div className="flex-1 flex items-center min-w-0 gap-2">
+        {left}
         <PaygodLogo size={20} />
         {center}
       </div>
@@ -52,6 +54,7 @@ export const NavbarMarketing: React.FC = () => (
 export interface NavbarAppProps {
   pageTitle?: string;
   wallet?: string;
+  onMenuClick?: () => void;
 }
 
 const NetworkBadge: React.FC = () => (
@@ -77,9 +80,22 @@ const NetworkBadge: React.FC = () => (
 export const NavbarApp: React.FC<NavbarAppProps> = ({
   pageTitle,
   wallet = MOCK_INSTITUTION.wallet,
+  onMenuClick,
 }) => (
   <Navbar
     style={{ paddingLeft: 24, paddingRight: 24 }}
+    left={
+      onMenuClick ? (
+        <button
+          type="button"
+          onClick={onMenuClick}
+          className="md:hidden text-white p-1 -ml-1"
+          aria-label="Open menu"
+        >
+          <Menu size={20} strokeWidth={1.5} />
+        </button>
+      ) : null
+    }
     center={
       pageTitle ? (
         <div className="flex items-center min-w-0">
@@ -102,8 +118,8 @@ export const NavbarApp: React.FC<NavbarAppProps> = ({
         <NetworkBadge />
         <button
           type="button"
-          className="flex items-center gap-1.5 hover:text-white transition-colors duration-150"
-          style={{ color: "var(--text-secondary)", fontSize: 13 }}
+          className="hidden sm:flex items-center gap-1.5 hover:text-white transition-colors duration-150"
+          style={{ color: "#888", fontSize: 13 }}
         >
           <span className="font-mono">{truncateAddress(wallet)}</span>
           <ChevronDown size={14} strokeWidth={1.5} />

@@ -73,7 +73,7 @@ export default function AuditLog() {
   ];
 
   return (
-    <div className="px-10 py-10">
+    <div>
       <div className="flex items-center justify-between">
         <h1 className="text-[28px] font-extrabold text-white tracking-tight">Audit Log</h1>
         <Button variant="outline" size="sm">

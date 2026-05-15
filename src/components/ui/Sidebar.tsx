@@ -26,71 +26,91 @@ export const APP_NAV: NavItem[] = [
   { to: "/app/settings", label: "Settings", icon: SettingsIcon },
 ];
 
-export const Sidebar: React.FC<{ onLogout?: () => void }> = ({ onLogout }) => {
+export const Sidebar: React.FC<{
+  onLogout?: () => void;
+  open?: boolean;
+  onClose?: () => void;
+}> = ({ onLogout, open = false, onClose }) => {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
-    <aside
-      className="fixed left-0 w-[220px] bg-black flex flex-col"
-      style={{
-        top: 56,
-        bottom: 0,
-        borderRight: "1px solid var(--border)",
-      }}
-    >
-      <nav className="flex-1 py-4">
-        {APP_NAV.map((item) => {
-          const isActive = pathname === item.to || pathname.startsWith(item.to + "/");
-          const Icon = item.icon;
-          return (
-            <Link
-              key={item.to}
-              to={item.to}
-              className={cn(
-                "relative flex items-center gap-3 px-5 h-10 text-sm transition-colors duration-150",
-                isActive
-                  ? "text-white bg-[var(--surface)]"
-                  : "text-[var(--text-secondary)] hover:text-white hover:bg-[rgba(255,255,255,0.02)]",
-              )}
-            >
-              {isActive && (
-                <span
-                  className="absolute left-0 top-0 bottom-0 w-[2px]"
-                  style={{ backgroundColor: "var(--accent)" }}
-                />
-              )}
-              <Icon size={16} strokeWidth={1.5} />
-              <span>{item.label}</span>
-            </Link>
-          );
-        })}
-      </nav>
+    <>
+      {/* Mobile overlay */}
+      <div
+        onClick={onClose}
+        className={cn(
+          "fixed inset-0 z-40 transition-opacity duration-200 md:hidden",
+          open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
+        )}
+        style={{ backgroundColor: "rgba(0,0,0,0.7)" }}
+        aria-hidden
+      />
+      <aside
+        className={cn(
+          "fixed left-0 w-[220px] bg-black flex flex-col z-50 transition-transform duration-200 md:translate-x-0",
+          open ? "translate-x-0" : "-translate-x-full",
+        )}
+        style={{
+          top: 56,
+          bottom: 0,
+          borderRight: "1px solid var(--border)",
+        }}
+      >
+        <nav className="flex-1 py-4 overflow-y-auto">
+          {APP_NAV.map((item) => {
+            const isActive = pathname === item.to || pathname.startsWith(item.to + "/");
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.to}
+                to={item.to}
+                onClick={onClose}
+                className={cn(
+                  "relative flex items-center gap-3 px-5 h-10 text-sm transition-colors duration-150",
+                  isActive
+                    ? "text-white bg-[var(--surface)]"
+                    : "text-[#888] hover:text-white hover:bg-[rgba(255,255,255,0.02)]",
+                )}
+              >
+                {isActive && (
+                  <span
+                    className="absolute left-0 top-0 bottom-0"
+                    style={{ width: 2, backgroundColor: "#ED3134" }}
+                  />
+                )}
+                <Icon size={16} strokeWidth={1.5} />
+                <span>{item.label}</span>
+              </Link>
+            );
+          })}
+        </nav>
 
-      <div className="p-3" style={{ borderTop: "1px solid var(--border)" }}>
-        <div
-          className="bg-[var(--surface)] p-3"
-          style={{ border: "1px solid var(--border)" }}
-        >
-          <div className="text-white font-medium" style={{ fontSize: 13 }}>
-            {MOCK_INSTITUTION.name}
-          </div>
+        <div className="p-3 min-w-0" style={{ borderTop: "1px solid var(--border)" }}>
           <div
-            className="font-mono mt-1"
-            style={{ color: "var(--text-secondary)", fontSize: 11 }}
+            className="bg-[var(--surface)] p-3 min-w-0"
+            style={{ border: "1px solid var(--border)" }}
           >
-            {MOCK_INSTITUTION.walletShort}
+            <div className="text-white font-medium truncate" style={{ fontSize: 13 }}>
+              {MOCK_INSTITUTION.name}
+            </div>
+            <div
+              className="font-mono mt-1 truncate"
+              style={{ color: "#888", fontSize: 11 }}
+            >
+              {MOCK_INSTITUTION.walletShort}
+            </div>
           </div>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="w-full mt-2 justify-start"
+            onClick={onLogout}
+          >
+            <LogOut size={14} strokeWidth={1.5} />
+            <span>Disconnect</span>
+          </Button>
         </div>
-        <Button
-          variant="ghost"
-          size="sm"
-          className="w-full mt-2 justify-start"
-          onClick={onLogout}
-        >
-          <LogOut size={14} strokeWidth={1.5} />
-          <span>Disconnect</span>
-        </Button>
-      </div>
-    </aside>
+      </aside>
+    </>
   );
 };

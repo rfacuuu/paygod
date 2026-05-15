@@ -10,33 +10,63 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   loading?: boolean;
 }
 
-const sizes: Record<Size, string> = {
-  sm: "h-8 px-3 text-xs",
-  md: "h-10 px-4 text-sm",
-  lg: "h-12 px-6 text-base",
+const sizeStyle: Record<Size, React.CSSProperties> = {
+  sm: { height: 32, padding: "0 14px", fontSize: 12 },
+  md: { height: 40, padding: "0 20px", fontSize: 13 },
+  lg: { height: 48, padding: "0 28px", fontSize: 14 },
 };
 
-const variants: Record<Variant, string> = {
-  primary:
-    "bg-[var(--accent)] text-white border border-[var(--accent)] hover:bg-[var(--accent-hover)] hover:border-[var(--accent-hover)]",
-  outline:
-    "bg-transparent text-white border border-white hover:bg-white hover:text-black",
-  ghost:
-    "bg-transparent text-[var(--text-secondary)] border border-transparent hover:text-white",
+const variantStyle: Record<Variant, React.CSSProperties> = {
+  primary: { backgroundColor: "#ED3134", color: "#fff", border: "1px solid #ED3134" },
+  outline: { backgroundColor: "transparent", color: "#fff", border: "1px solid rgba(255,255,255,0.3)" },
+  ghost: { backgroundColor: "transparent", color: "#888", border: "1px solid transparent" },
 };
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = "primary", size = "md", loading, disabled, children, ...props }, ref) => {
+  ({ className, variant = "primary", size = "md", loading, disabled, children, style, onMouseEnter, onMouseLeave, ...props }, ref) => {
+    const isDisabled = disabled || loading;
     return (
       <button
         ref={ref}
-        disabled={disabled || loading}
+        disabled={isDisabled}
         className={cn(
-          "inline-flex items-center justify-center gap-2 font-medium rounded-none transition-colors duration-150 ease-out disabled:opacity-50 disabled:cursor-not-allowed",
-          sizes[size],
-          variants[variant],
+          "inline-flex items-center justify-center gap-2 rounded-none whitespace-nowrap",
           className,
         )}
+        style={{
+          fontFamily: "Inter, sans-serif",
+          fontWeight: 500,
+          letterSpacing: "0.02em",
+          transition: "all 150ms ease",
+          cursor: isDisabled ? "not-allowed" : "pointer",
+          opacity: isDisabled ? 0.3 : 1,
+          ...sizeStyle[size],
+          ...variantStyle[variant],
+          ...style,
+        }}
+        onMouseEnter={(e) => {
+          if (!isDisabled) {
+            if (variant === "primary") {
+              e.currentTarget.style.backgroundColor = "#C42528";
+              e.currentTarget.style.borderColor = "#C42528";
+            } else if (variant === "outline") {
+              e.currentTarget.style.backgroundColor = "#fff";
+              e.currentTarget.style.color = "#000";
+            } else if (variant === "ghost") {
+              e.currentTarget.style.color = "#fff";
+            }
+          }
+          onMouseEnter?.(e);
+        }}
+        onMouseLeave={(e) => {
+          if (!isDisabled) {
+            const v = variantStyle[variant];
+            e.currentTarget.style.backgroundColor = (v.backgroundColor as string) ?? "transparent";
+            e.currentTarget.style.borderColor = (v.border as string)?.split(" ").slice(-1)[0] ?? "transparent";
+            e.currentTarget.style.color = (v.color as string) ?? "#fff";
+          }
+          onMouseLeave?.(e);
+        }}
         {...props}
       >
         {loading && (
