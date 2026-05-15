@@ -8,11 +8,13 @@ export const Reveal: React.FC<React.HTMLAttributes<HTMLDivElement> & { delay?: n
   ...props
 }) => {
   const ref = React.useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = React.useState(false);
+  // Default to visible so SSR / no-IO environments still render content.
+  const [visible, setVisible] = React.useState(true);
 
   React.useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    setVisible(false);
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -20,7 +22,7 @@ export const Reveal: React.FC<React.HTMLAttributes<HTMLDivElement> & { delay?: n
           obs.disconnect();
         }
       },
-      { threshold: 0.15 },
+      { threshold: 0.1 },
     );
     obs.observe(el);
     return () => obs.disconnect();
