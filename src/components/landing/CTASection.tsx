@@ -2,11 +2,13 @@ import { Button } from "@/components/ui/Button";
 
 export const CTASection: React.FC = () => (
   <section
+    id="cta"
     style={{
       padding: "120px 24px",
       backgroundColor: "var(--surface)",
       borderTop: "1px solid var(--border)",
       borderBottom: "1px solid var(--border)",
+      scrollMarginTop: 80,
     }}
   >
     <div className="max-w-2xl mx-auto text-center">
