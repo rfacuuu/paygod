@@ -1,5 +1,5 @@
 import * as React from "react";
-import lockup from "@/assets/paygod-mark.png";
+import logoSvg from "@/assets/paygod-logo.svg";
 
 // Inline SVG » chevron mark (icon-only)
 export const PaygodMark: React.FC<{ size?: number; className?: string; color?: string }> = ({
@@ -15,17 +15,17 @@ export const PaygodMark: React.FC<{ size?: number; className?: string; color?: s
     className={className}
     aria-label="Paygod"
   >
-    <path
-      d="M2 0 L14 0 L22 9 L14 18 L2 18 L10 9 Z"
-      fill={color}
-    />
+    <path d="M2 0 L14 0 L22 9 L14 18 L2 18 L10 9 Z" fill={color} />
   </svg>
 );
 
-// Full lockup (icon + wordmark) using the brand asset.
-export const PaygodLogo: React.FC<{ size?: number; className?: string }> = ({ size = 20, className }) => (
+// Full lockup using the SVG asset (mark + wordmark already inside the SVG).
+export const PaygodLogo: React.FC<{ size?: number; className?: string }> = ({
+  size = 28,
+  className,
+}) => (
   <img
-    src={lockup}
+    src={logoSvg}
     alt="Paygod"
     style={{ height: size, width: "auto", display: "block" }}
     className={className}

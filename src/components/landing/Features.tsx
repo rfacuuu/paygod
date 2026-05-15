@@ -26,7 +26,7 @@ const features = [
 ];
 
 export const Features: React.FC = () => (
-  <section style={{ padding: "120px 24px" }}>
+  <section id="product" style={{ padding: "120px 24px", scrollMarginTop: 80 }}>
     <div className="max-w-6xl mx-auto">
       <p
         className="text-center uppercase font-medium"

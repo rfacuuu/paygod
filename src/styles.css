@@ -49,8 +49,9 @@
 html, body {
   background: var(--background);
   color: var(--text-primary);
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+html { scroll-behavior: smooth; }
 
 /* Re-export for any path aliases pointing at styles/globals.css */

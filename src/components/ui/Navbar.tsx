@@ -1,5 +1,6 @@
 import * as React from "react";
 import { ChevronDown, Menu } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { cn, truncateAddress } from "@/lib/utils";
 import { PaygodLogo } from "./Logo";
 import { Button } from "./Button";
@@ -9,43 +10,72 @@ export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   center?: React.ReactNode;
   right?: React.ReactNode;
   left?: React.ReactNode;
+  logoSize?: number;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ center, right, left, className, ...props }) => {
+export const Navbar: React.FC<NavbarProps> = ({
+  center,
+  right,
+  left,
+  logoSize = 28,
+  className,
+  ...props
+}) => {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 h-14 bg-black z-50 flex items-center px-6",
+        "fixed top-0 left-0 right-0 h-16 bg-black z-50 flex items-center px-8",
         className,
       )}
       style={{ borderBottom: "1px solid var(--border)" }}
       {...props}
     >
-      <div className="flex-1 flex items-center min-w-0 gap-2">
+      <div className="flex items-center min-w-0 gap-10" style={{ marginRight: 48 }}>
         {left}
-        <PaygodLogo size={20} />
-        {center}
+        <Link to="/" aria-label="Paygod home" className="shrink-0 inline-flex items-center">
+          <PaygodLogo size={logoSize} />
+        </Link>
       </div>
+      <div className="flex-1 flex items-center min-w-0">{center}</div>
       <div className="flex items-center justify-end gap-3">{right}</div>
     </header>
   );
 };
 
+const marketingLinks = [
+  { label: "Product", href: "#product" },
+  { label: "How it works", href: "#how-it-works" },
+  { label: "Compliance", href: "#product" },
+  { label: "Contact", href: "#cta" },
+];
+
 export const NavbarMarketing: React.FC = () => (
   <Navbar
+    logoSize={32}
     center={
-      <nav className="hidden md:flex items-center gap-8 text-sm text-[var(--text-secondary)] ml-12">
-        {["Product", "Compliance", "Docs", "About"].map((l) => (
-          <a key={l} href="#" className="hover:text-white transition-colors duration-150">
-            {l}
+      <nav
+        className="hidden md:flex items-center gap-8 text-sm ml-8"
+        style={{ color: "var(--text-secondary)" }}
+      >
+        {marketingLinks.map((l) => (
+          <a
+            key={l.label}
+            href={l.href}
+            className="hover:text-white transition-colors duration-150"
+          >
+            {l.label}
           </a>
         ))}
       </nav>
     }
     right={
       <>
-        <Button variant="outline" size="sm">Sign in</Button>
-        <Button variant="primary" size="sm">Request Access</Button>
+        <Link to="/app/overview">
+          <Button variant="outline" size="sm">Sign in</Button>
+        </Link>
+        <Link to="/app/overview">
+          <Button variant="primary" size="sm">Request Access</Button>
+        </Link>
       </>
     }
   />

@@ -1,3 +1,5 @@
+import * as React from "react";
+
 const Triangle = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
     <path d="M12 3 L22 21 L2 21 Z" />
@@ -11,49 +13,72 @@ const LockIcon = () => (
   </svg>
 );
 
-const items = [
-  { label: "AVALANCHE", icon: <Triangle />, weight: 700 as const, tracking: "0.05em" },
-  { label: "bankaool", weight: 600 as const, tracking: "-0.02em", italic: false },
-  { label: "ARKÁNGELES", weight: 600 as const, tracking: "0.1em" },
-  { label: "x402", weight: 700 as const, border: true },
-  { label: "eERC20", icon: <LockIcon />, weight: 600 as const, tracking: "0.05em" },
+type Item = {
+  label: string;
+  icon?: React.ReactNode;
+  weight?: number;
+  tracking?: string;
+  border?: boolean;
+};
+
+const items: Item[] = [
+  { label: "AVALANCHE", icon: <Triangle />, weight: 700, tracking: "0.05em" },
+  { label: "bankaool", weight: 600, tracking: "-0.02em" },
+  { label: "ARKÁNGELES", weight: 600, tracking: "0.1em" },
+  { label: "x402", weight: 700, border: true },
+  { label: "eERC20", icon: <LockIcon />, weight: 600, tracking: "0.05em" },
+  { label: "MICA READY", weight: 600, tracking: "0.15em" },
+  { label: "TRAVEL RULE", weight: 600, tracking: "0.15em" },
 ];
 
-export const SocialProof: React.FC = () => (
-  <section
+const Logo: React.FC<{ it: Item }> = ({ it }) => (
+  <div
+    className="flex items-center gap-2 shrink-0 transition-colors duration-150"
     style={{
-      padding: "48px 24px",
-      borderTop: "1px solid var(--border)",
-      borderBottom: "1px solid var(--border)",
+      color: "rgba(255,255,255,0.35)",
+      fontFamily: "Inter, sans-serif",
+      fontWeight: it.weight,
+      letterSpacing: it.tracking,
+      fontSize: 14,
+      padding: it.border ? "4px 10px" : 0,
+      border: it.border ? "1px solid rgba(255,255,255,0.18)" : undefined,
     }}
   >
-    <p
-      className="text-center"
-      style={{ color: "var(--text-secondary)", fontSize: 12, marginBottom: 32 }}
-    >
-      Trusted and built with
-    </p>
-    <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 max-w-5xl mx-auto">
-      {items.map((it) => (
-        <div
-          key={it.label}
-          className="flex items-center gap-2 transition-colors duration-150 cursor-default"
-          style={{
-            color: "rgba(255,255,255,0.3)",
-            fontFamily: "Inter, sans-serif",
-            fontWeight: it.weight,
-            letterSpacing: it.tracking,
-            fontSize: 14,
-            padding: it.border ? "4px 10px" : 0,
-            border: it.border ? "1px solid rgba(255,255,255,0.15)" : undefined,
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.7)")}
-          onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.3)")}
-        >
-          {it.icon}
-          <span>{it.label}</span>
-        </div>
-      ))}
-    </div>
-  </section>
+    {it.icon}
+    <span>{it.label}</span>
+  </div>
 );
+
+export const SocialProof: React.FC = () => {
+  // Duplicate items so the marquee loops seamlessly.
+  const loop = [...items, ...items];
+  return (
+    <section
+      style={{
+        padding: "48px 0",
+        borderTop: "1px solid var(--border)",
+        borderBottom: "1px solid var(--border)",
+      }}
+    >
+      <p
+        className="text-center"
+        style={{
+          color: "var(--text-secondary)",
+          fontSize: 12,
+          marginBottom: 32,
+          letterSpacing: "0.1em",
+          textTransform: "uppercase",
+        }}
+      >
+        Trusted and built with
+      </p>
+      <div className="marquee">
+        <div className="marquee-track">
+          {loop.map((it, i) => (
+            <Logo key={`${it.label}-${i}`} it={it} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
