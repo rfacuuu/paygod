@@ -16,36 +16,50 @@ export default function AppLayout() {
   return (
     <div className="min-h-screen w-full bg-black text-white">
       <NavbarApp pageTitle={current?.label} onMenuClick={() => setMenuOpen(true)} />
-      <Sidebar open={menuOpen} onClose={() => setMenuOpen(false)} navTop={NAV_H} width={SIDEBAR_W} />
-      <main
-        className="overflow-y-auto"
+      <Sidebar
+        open={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        navTop={NAV_H}
+        width={SIDEBAR_W}
+      />
+      <ContentShell>
+        <Outlet />
+      </ContentShell>
+    </div>
+  );
+}
+
+function ContentShell({ children }: { children: React.ReactNode }) {
+  // We use a ref to a media query so the desktop offset only applies >=768px.
+  const [isDesktop, setIsDesktop] = useState(false);
+  if (typeof window !== "undefined") {
+    // Initialize once on client
+    if (!isDesktop && window.matchMedia("(min-width: 768px)").matches) {
+      // schedule update without re-render loop
+      queueMicrotask(() => setIsDesktop(true));
+    }
+  }
+
+  return (
+    <main
+      className="overflow-y-auto"
+      style={{
+        marginTop: NAV_H,
+        marginLeft: isDesktop ? SIDEBAR_W : 0,
+        minHeight: `calc(100vh - ${NAV_H}px)`,
+        background: "#000",
+        transition: "margin-left 200ms ease",
+      }}
+    >
+      <div
         style={{
-          marginTop: NAV_H,
-          marginLeft: 0,
-          paddingLeft: 0,
-          minHeight: `calc(100vh - ${NAV_H}px)`,
-          background: "#000",
+          maxWidth: 1280,
+          margin: "0 auto",
+          padding: "48px 40px 64px",
         }}
       >
-        <div
-          className="md:pl-[var(--app-sidebar-w)]"
-          style={
-            {
-              "--app-sidebar-w": `${SIDEBAR_W}px`,
-            } as React.CSSProperties
-          }
-        >
-          <div
-            style={{
-              maxWidth: 1280,
-              margin: "0 auto",
-              padding: "48px 40px 64px",
-            }}
-          >
-            <Outlet />
-          </div>
-        </div>
-      </main>
-    </div>
+        {children}
+      </div>
+    </main>
   );
 }
