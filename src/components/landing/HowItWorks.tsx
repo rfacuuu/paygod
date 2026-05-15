@@ -45,7 +45,7 @@ const Arrow = ({ vertical }: { vertical?: boolean }) => (
 );
 
 export const HowItWorks: React.FC = () => (
-  <section style={{ padding: "120px 24px", backgroundColor: "#0A0A0A" }}>
+  <section id="how-it-works" style={{ padding: "120px 24px", backgroundColor: "#0A0A0A", scrollMarginTop: 80 }}>
     <div className="max-w-6xl mx-auto">
       <p
         className="text-center uppercase font-medium"
