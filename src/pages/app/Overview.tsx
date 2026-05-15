@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "@tanstack/react-router";
 import { ArrowUp, AlertTriangle } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
@@ -103,6 +104,7 @@ const columns: TableColumn<MockTransfer>[] = [
 ];
 
 export default function Overview() {
+  const navigate = useNavigate();
   const recent = MOCK_TRANSFERS.slice(0, 6);
 
   return (
@@ -115,7 +117,9 @@ export default function Overview() {
         >
           Overview
         </h1>
-        <Button variant="primary" size="sm">New Transfer</Button>
+        <Button variant="primary" size="sm" onClick={() => navigate({ to: "/app/transfers" })}>
+          New Transfer
+        </Button>
       </div>
 
       {/* KPI cards */}
