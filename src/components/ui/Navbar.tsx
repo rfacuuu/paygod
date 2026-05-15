@@ -17,26 +17,38 @@ export const Navbar: React.FC<NavbarProps> = ({
   center,
   right,
   left,
-  logoSize = 28,
+  logoSize = 26,
   className,
   ...props
 }) => {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 h-16 bg-black z-50 flex items-center px-8",
+        "fixed top-0 left-0 right-0 h-16 bg-black z-50 flex items-center",
         className,
       )}
-      style={{ borderBottom: "1px solid var(--border)" }}
+      style={{ borderBottom: "1px solid var(--border)", paddingLeft: 32, paddingRight: 32 }}
       {...props}
     >
-      <div className="flex items-center min-w-0 gap-10" style={{ marginRight: 48 }}>
-        {left}
+      {/* Left cluster: logo + optional contextual content (page title or menu btn) */}
+      <div className="flex items-center min-w-0 gap-4">
         <Link to="/" aria-label="Paygod home" className="shrink-0 inline-flex items-center">
           <PaygodLogo size={logoSize} />
         </Link>
+        {left}
       </div>
-      <div className="flex-1 flex items-center min-w-0">{center}</div>
+
+      {/* Center: absolutely centered so nav items are page-centered */}
+      {center ? (
+        <div className="hidden md:flex absolute left-1/2 top-0 h-full items-center -translate-x-1/2 pointer-events-none">
+          <div className="pointer-events-auto">{center}</div>
+        </div>
+      ) : null}
+
+      {/* Spacer to push right cluster */}
+      <div className="flex-1" />
+
+      {/* Right cluster */}
       <div className="flex items-center justify-end gap-3">{right}</div>
     </header>
   );
@@ -51,10 +63,10 @@ const marketingLinks = [
 
 export const NavbarMarketing: React.FC = () => (
   <Navbar
-    logoSize={32}
+    logoSize={26}
     center={
       <nav
-        className="hidden md:flex items-center gap-8 text-sm ml-8"
+        className="flex items-center gap-10 text-sm"
         style={{ color: "var(--text-secondary)" }}
       >
         {marketingLinks.map((l) => (
@@ -113,35 +125,34 @@ export const NavbarApp: React.FC<NavbarAppProps> = ({
   onMenuClick,
 }) => (
   <Navbar
-    style={{ paddingLeft: 24, paddingRight: 24 }}
     left={
-      onMenuClick ? (
-        <button
-          type="button"
-          onClick={onMenuClick}
-          className="md:hidden text-white p-1 -ml-1"
-          aria-label="Open menu"
-        >
-          <Menu size={20} strokeWidth={1.5} />
-        </button>
-      ) : null
-    }
-    center={
-      pageTitle ? (
-        <div className="flex items-center min-w-0">
-          <span
-            className="mx-4 h-6"
-            style={{ borderLeft: "1px solid var(--border)" }}
-            aria-hidden
-          />
-          <span
-            className="text-white font-medium truncate"
-            style={{ fontSize: 14 }}
+      <>
+        {onMenuClick ? (
+          <button
+            type="button"
+            onClick={onMenuClick}
+            className="md:hidden text-white p-1 -ml-1"
+            aria-label="Open menu"
           >
-            {pageTitle}
-          </span>
-        </div>
-      ) : null
+            <Menu size={20} strokeWidth={1.5} />
+          </button>
+        ) : null}
+        {pageTitle ? (
+          <div className="hidden sm:flex items-center min-w-0">
+            <span
+              className="mx-4 h-6"
+              style={{ borderLeft: "1px solid var(--border)" }}
+              aria-hidden
+            />
+            <span
+              className="text-white font-medium truncate"
+              style={{ fontSize: 14 }}
+            >
+              {pageTitle}
+            </span>
+          </div>
+        ) : null}
+      </>
     }
     right={
       <>

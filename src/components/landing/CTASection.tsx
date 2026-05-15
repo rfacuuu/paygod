@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/Button";
+import { GridShader } from "./GridShader";
 
 export const CTASection: React.FC = () => (
   <section
     id="cta"
+    className="relative overflow-hidden"
     style={{
       padding: "120px 24px",
       backgroundColor: "var(--surface)",
@@ -11,7 +13,12 @@ export const CTASection: React.FC = () => (
       scrollMarginTop: 80,
     }}
   >
-    <div className="max-w-2xl mx-auto text-center">
+    <GridShader intensity="low" />
+
+    <div
+      className="relative text-center flex flex-col items-center"
+      style={{ maxWidth: 640, margin: "0 auto" }}
+    >
       <h2
         className="font-extrabold text-white"
         style={{ fontSize: "clamp(32px, 5vw, 48px)", letterSpacing: "-0.03em" }}
@@ -23,7 +30,7 @@ export const CTASection: React.FC = () => (
         style={{
           color: "var(--text-secondary)",
           fontSize: 16,
-          maxWidth: 440,
+          maxWidth: 460,
           margin: "16px auto 40px",
           lineHeight: 1.6,
         }}
@@ -32,14 +39,14 @@ export const CTASection: React.FC = () => (
       </p>
 
       <form
-        className="flex justify-center"
+        className="w-full flex justify-center"
         onSubmit={(e) => e.preventDefault()}
       >
-        <div className="flex" style={{ width: "100%", maxWidth: 480 }}>
+        <div className="flex w-full" style={{ maxWidth: 480 }}>
           <input
             type="email"
             placeholder="Work email"
-            className="flex-1 h-12 px-4 text-sm text-white placeholder:text-[var(--text-secondary)] bg-[var(--surface)] outline-none"
+            className="flex-1 h-12 px-4 text-sm text-white placeholder:text-[var(--text-secondary)] bg-black outline-none"
             style={{
               border: "1px solid var(--border)",
               borderRight: "none",

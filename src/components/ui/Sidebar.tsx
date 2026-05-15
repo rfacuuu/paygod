@@ -30,7 +30,9 @@ export const Sidebar: React.FC<{
   onLogout?: () => void;
   open?: boolean;
   onClose?: () => void;
-}> = ({ onLogout, open = false, onClose }) => {
+  navTop?: number;
+  width?: number;
+}> = ({ onLogout, open = false, onClose, navTop = 64, width = 240 }) => {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
@@ -47,12 +49,13 @@ export const Sidebar: React.FC<{
       />
       <aside
         className={cn(
-          "fixed left-0 w-[220px] bg-black flex flex-col z-50 transition-transform duration-200 md:translate-x-0",
+          "fixed left-0 bg-black flex flex-col z-40 transition-transform duration-200 md:translate-x-0",
           open ? "translate-x-0" : "-translate-x-full",
         )}
         style={{
-          top: 56,
+          top: navTop,
           bottom: 0,
+          width,
           borderRight: "1px solid var(--border)",
         }}
       >
