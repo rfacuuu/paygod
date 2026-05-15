@@ -161,11 +161,20 @@ export default function Compliance() {
           </div>
         </div>
 
-        <div className="px-4 py-4" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+        <div className="px-4 py-4 flex flex-col gap-2" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
           <Button variant="primary" className="w-full">
             <Download size={14} />
             Export Compliance Report
           </Button>
+          <Link
+            to="/app/compliance/agent/$txId"
+            params={{ txId: MOCK_DECRYPTED_TX.id }}
+            className="w-full"
+          >
+            <Button variant="ghost" size="sm" className="w-full">
+              View Agent Detail
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
