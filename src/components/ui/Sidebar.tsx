@@ -89,27 +89,16 @@ export const Sidebar: React.FC<{
           })}
         </nav>
 
-        <div className="p-3 min-w-0" style={{ borderTop: "1px solid var(--border)" }}>
-          <div
-            className="bg-[var(--surface)] p-3 min-w-0"
-            style={{ border: "1px solid var(--border)" }}
-          >
+        <div className="min-w-0" style={{ padding: 16, borderTop: "1px solid var(--border)" }}>
+          <div className="bg-[var(--surface)] min-w-0" style={{ border: "1px solid var(--border)", padding: 14 }}>
             <div className="text-white font-medium truncate" style={{ fontSize: 13 }}>
               {MOCK_INSTITUTION.name}
             </div>
-            <div
-              className="font-mono mt-1 truncate"
-              style={{ color: "#888", fontSize: 11 }}
-            >
+            <div className="font-mono truncate" style={{ color: "#888", fontSize: 11, marginTop: 6 }}>
               {MOCK_INSTITUTION.walletShort}
             </div>
           </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="w-full mt-2 justify-start"
-            onClick={onLogout}
-          >
+          <Button variant="ghost" size="sm" className="w-full justify-start" style={{ marginTop: 12 }} onClick={onLogout}>
             <LogOut size={14} strokeWidth={1.5} />
             <span>Disconnect</span>
           </Button>
