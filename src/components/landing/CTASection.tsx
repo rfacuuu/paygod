@@ -6,7 +6,7 @@ export const CTASection: React.FC = () => (
     id="cta"
     className="relative overflow-hidden"
     style={{
-      padding: "120px 24px",
+      padding: "140px 24px",
       backgroundColor: "var(--surface)",
       borderTop: "1px solid var(--border)",
       borderBottom: "1px solid var(--border)",
@@ -26,12 +26,11 @@ export const CTASection: React.FC = () => (
         Ready to settle privately?
       </h2>
       <p
-        className="mx-auto"
         style={{
           color: "var(--text-secondary)",
           fontSize: 16,
           maxWidth: 460,
-          margin: "16px auto 40px",
+          margin: "24px auto 48px",
           lineHeight: 1.6,
         }}
       >
@@ -42,14 +41,14 @@ export const CTASection: React.FC = () => (
         className="w-full flex justify-center"
         onSubmit={(e) => e.preventDefault()}
       >
-        <div className="flex w-full" style={{ maxWidth: 480 }}>
+        <div className="flex w-full" style={{ maxWidth: 520, gap: 12 }}>
           <input
             type="email"
             placeholder="Work email"
-            className="flex-1 h-12 px-4 text-sm text-white placeholder:text-[var(--text-secondary)] bg-black outline-none"
+            className="flex-1 h-12 text-sm text-white placeholder:text-[var(--text-secondary)] bg-black outline-none transition-colors duration-150 focus:border-[var(--accent)]"
             style={{
               border: "1px solid var(--border)",
-              borderRight: "none",
+              padding: "0 18px",
             }}
           />
           <Button variant="primary" size="lg" type="submit">Request Access</Button>
@@ -57,8 +56,8 @@ export const CTASection: React.FC = () => (
       </form>
 
       <div
-        className="flex items-center justify-center gap-2 mt-4"
-        style={{ color: "var(--text-secondary)", fontSize: 12 }}
+        className="flex items-center justify-center gap-2"
+        style={{ color: "var(--text-secondary)", fontSize: 12, marginTop: 24 }}
       >
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2">
           <path d="M12 3l8 4v6c0 5-3.5 7.5-8 8-4.5-.5-8-3-8-8V7l8-4z" />
