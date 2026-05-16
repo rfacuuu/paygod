@@ -4,7 +4,7 @@ import { NavbarApp } from "@/components/ui/Navbar";
 import { Sidebar, APP_NAV } from "@/components/ui/Sidebar";
 
 const NAV_H = 64;
-const SIDEBAR_W = 240;
+const SIDEBAR_W = 256;
 
 function useIsDesktop() {
   const [isDesktop, setIsDesktop] = useState(() =>
