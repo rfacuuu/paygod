@@ -81,14 +81,9 @@ export const NavbarMarketing: React.FC = () => (
       </nav>
     }
     right={
-      <>
-        <Link to="/app/overview">
-          <Button variant="outline" size="sm">Sign in</Button>
-        </Link>
-        <Link to="/app/overview">
-          <Button variant="primary" size="sm">Request Access</Button>
-        </Link>
-      </>
+      <Link to="/app/overview">
+        <Button variant="primary" size="sm">Request Access</Button>
+      </Link>
     }
   />
 );

@@ -27,7 +27,7 @@ const features = [
 
 export const Features: React.FC = () => (
   <section id="product" style={{ padding: "120px 24px", scrollMarginTop: 80 }}>
-    <div className="max-w-6xl mx-auto">
+    <div className="mx-auto flex flex-col items-center" style={{ maxWidth: 1120, width: "100%" }}>
       <p
         className="text-center uppercase font-medium"
         style={{ color: "var(--accent)", fontSize: 11, letterSpacing: "0.2em", marginBottom: 16 }}
@@ -36,15 +36,15 @@ export const Features: React.FC = () => (
       </p>
       <h2
         className="text-center font-bold text-white"
-        style={{ fontSize: "clamp(28px, 4vw, 40px)", letterSpacing: "-0.02em", marginBottom: 64 }}
+        style={{ fontSize: "clamp(28px, 4vw, 40px)", letterSpacing: "-0.02em", marginBottom: 64, maxWidth: 720 }}
       >
         Everything institutions need. Nothing they don't.
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 w-full" style={{ gap: 16 }}>
         {features.map((f, i) => (
           <Reveal key={f.title} delay={i * 100}>
-            <Card padding={28} className="h-full">
+            <Card padding={28} className="h-full transition-colors duration-200 hover:border-[rgba(237,49,52,0.4)]">
               <div style={{ marginBottom: 20 }}>{f.icon}</div>
               <h3 className="text-white" style={{ fontSize: 16, fontWeight: 700, marginBottom: 8 }}>
                 {f.title}

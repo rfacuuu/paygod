@@ -60,10 +60,9 @@ export const Hero: React.FC = () => {
 
         <div
           className="fade-up flex flex-wrap items-center justify-center"
-          style={{ gap: 12, marginTop: 32, animationDelay: "300ms" }}
+          style={{ marginTop: 40, animationDelay: "300ms" }}
         >
           <Button variant="primary" size="lg">Request Access</Button>
-          <Button variant="outline" size="lg">View Docs</Button>
         </div>
       </div>
 

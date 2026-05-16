@@ -59,7 +59,7 @@ export const Sidebar: React.FC<{
           borderRight: "1px solid var(--border)",
         }}
       >
-        <nav className="flex-1 py-4 overflow-y-auto">
+        <nav className="flex-1 overflow-y-auto" style={{ padding: "24px 12px" }}>
           {APP_NAV.map((item) => {
             const isActive = pathname === item.to || pathname.startsWith(item.to + "/");
             const Icon = item.icon;
@@ -69,11 +69,12 @@ export const Sidebar: React.FC<{
                 to={item.to}
                 onClick={onClose}
                 className={cn(
-                  "relative flex items-center gap-3 px-5 h-10 text-sm transition-colors duration-150",
+                  "relative flex items-center text-sm transition-colors duration-150",
                   isActive
                     ? "text-white bg-[var(--surface)]"
-                    : "text-[#888] hover:text-white hover:bg-[rgba(255,255,255,0.02)]",
+                    : "text-[#888] hover:text-white hover:bg-[rgba(255,255,255,0.03)]",
                 )}
+                style={{ gap: 12, padding: "0 16px", height: 40, marginBottom: 2 }}
               >
                 {isActive && (
                   <span
@@ -88,27 +89,16 @@ export const Sidebar: React.FC<{
           })}
         </nav>
 
-        <div className="p-3 min-w-0" style={{ borderTop: "1px solid var(--border)" }}>
-          <div
-            className="bg-[var(--surface)] p-3 min-w-0"
-            style={{ border: "1px solid var(--border)" }}
-          >
+        <div className="min-w-0" style={{ padding: 16, borderTop: "1px solid var(--border)" }}>
+          <div className="bg-[var(--surface)] min-w-0" style={{ border: "1px solid var(--border)", padding: 14 }}>
             <div className="text-white font-medium truncate" style={{ fontSize: 13 }}>
               {MOCK_INSTITUTION.name}
             </div>
-            <div
-              className="font-mono mt-1 truncate"
-              style={{ color: "#888", fontSize: 11 }}
-            >
+            <div className="font-mono truncate" style={{ color: "#888", fontSize: 11, marginTop: 6 }}>
               {MOCK_INSTITUTION.walletShort}
             </div>
           </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="w-full mt-2 justify-start"
-            onClick={onLogout}
-          >
+          <Button variant="ghost" size="sm" className="w-full justify-start" style={{ marginTop: 12 }} onClick={onLogout}>
             <LogOut size={14} strokeWidth={1.5} />
             <span>Disconnect</span>
           </Button>

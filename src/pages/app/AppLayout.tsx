@@ -4,7 +4,7 @@ import { NavbarApp } from "@/components/ui/Navbar";
 import { Sidebar, APP_NAV } from "@/components/ui/Sidebar";
 
 const NAV_H = 64;
-const SIDEBAR_W = 240;
+const SIDEBAR_W = 256;
 
 function useIsDesktop() {
   const [isDesktop, setIsDesktop] = useState(() =>
@@ -53,7 +53,7 @@ export default function AppLayout() {
           style={{
             maxWidth: 1280,
             margin: "0 auto",
-            padding: "48px 40px 80px",
+            padding: "56px 56px 96px",
           }}
         >
           <Outlet />
