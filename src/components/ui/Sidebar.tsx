@@ -59,7 +59,7 @@ export const Sidebar: React.FC<{
           borderRight: "1px solid var(--border)",
         }}
       >
-        <nav className="flex-1 py-4 overflow-y-auto">
+        <nav className="flex-1 overflow-y-auto" style={{ padding: "24px 12px" }}>
           {APP_NAV.map((item) => {
             const isActive = pathname === item.to || pathname.startsWith(item.to + "/");
             const Icon = item.icon;
@@ -69,11 +69,12 @@ export const Sidebar: React.FC<{
                 to={item.to}
                 onClick={onClose}
                 className={cn(
-                  "relative flex items-center gap-3 px-5 h-10 text-sm transition-colors duration-150",
+                  "relative flex items-center text-sm transition-colors duration-150",
                   isActive
                     ? "text-white bg-[var(--surface)]"
-                    : "text-[#888] hover:text-white hover:bg-[rgba(255,255,255,0.02)]",
+                    : "text-[#888] hover:text-white hover:bg-[rgba(255,255,255,0.03)]",
                 )}
+                style={{ gap: 12, padding: "0 16px", height: 40, marginBottom: 2 }}
               >
                 {isActive && (
                   <span
