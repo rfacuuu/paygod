@@ -46,7 +46,7 @@ const Arrow = ({ vertical }: { vertical?: boolean }) => (
 
 export const HowItWorks: React.FC = () => (
   <section id="how-it-works" style={{ padding: "120px 24px", backgroundColor: "#0A0A0A", scrollMarginTop: 80 }}>
-    <div className="max-w-6xl mx-auto">
+    <div className="mx-auto flex flex-col items-center" style={{ maxWidth: 1120, width: "100%" }}>
       <p
         className="text-center uppercase font-medium"
         style={{ color: "var(--accent)", fontSize: 11, letterSpacing: "0.2em", marginBottom: 16 }}
@@ -55,17 +55,17 @@ export const HowItWorks: React.FC = () => (
       </p>
       <h2
         className="text-center font-bold text-white"
-        style={{ fontSize: "clamp(28px, 4vw, 40px)", letterSpacing: "-0.02em", marginBottom: 64 }}
+        style={{ fontSize: "clamp(28px, 4vw, 40px)", letterSpacing: "-0.02em", marginBottom: 72, maxWidth: 720 }}
       >
         How a confidential transfer works.
       </h2>
 
-      <div className="flex flex-col md:flex-row items-stretch md:items-start justify-center gap-6 md:gap-2">
+      <div className="flex flex-col md:flex-row items-stretch md:items-start justify-center w-full" style={{ gap: 8 }}>
         {steps.map((s, idx) => (
           <div key={s.n} className="flex flex-col md:flex-row items-center md:items-start flex-1">
             <div className="flex flex-col items-center text-center px-2 flex-1">
               <div
-                className="w-9 h-9 flex items-center justify-center text-sm font-semibold"
+                className="w-9 h-9 flex items-center justify-center text-sm font-semibold transition-colors duration-200"
                 style={{
                   border: `1px solid ${s.accent ? "var(--accent)" : "var(--border-strong)"}`,
                   backgroundColor: s.accent ? "rgba(237,49,52,0.08)" : "transparent",
@@ -75,7 +75,7 @@ export const HowItWorks: React.FC = () => (
                 {s.n}
               </div>
               <div style={{ marginTop: 16 }}>{s.icon}</div>
-              <h3 className="text-white" style={{ fontSize: 14, fontWeight: 600, marginTop: 12 }}>
+              <h3 className="text-white" style={{ fontSize: 14, fontWeight: 600, marginTop: 16 }}>
                 {s.title}
               </h3>
               <p
@@ -83,15 +83,15 @@ export const HowItWorks: React.FC = () => (
                   color: "var(--text-secondary)",
                   fontSize: 12,
                   lineHeight: 1.6,
-                  maxWidth: 160,
-                  marginTop: 8,
+                  maxWidth: 180,
+                  marginTop: 10,
                 }}
               >
                 {s.desc}
               </p>
             </div>
             {idx < steps.length - 1 && (
-              <div className="md:pt-4 md:px-1">
+              <div className="md:pt-4 md:px-2">
                 <span className="hidden md:inline-block"><Arrow /></span>
                 <span className="inline-block md:hidden"><Arrow vertical /></span>
               </div>
