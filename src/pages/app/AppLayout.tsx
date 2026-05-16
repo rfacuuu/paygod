@@ -53,7 +53,7 @@ export default function AppLayout() {
           style={{
             maxWidth: 1280,
             margin: "0 auto",
-            padding: "48px 40px 80px",
+            padding: "56px 56px 96px",
           }}
         >
           <Outlet />
