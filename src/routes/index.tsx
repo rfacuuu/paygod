@@ -15,7 +15,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Confidential B2B settlement infrastructure for LatAm financial institutions. Compliance-ready.",
+          "Confidential B2B settlement infrastructure for LatAm financial institutions. Compliance-ready. Regulator-auditable.",
       },
     ],
   }),
